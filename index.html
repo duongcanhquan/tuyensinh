@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Tuyển Sinh Số - Cao Đẳng Việt Mỹ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-orange: #F36F21;
+            --deep-blue: #003366;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* BACKGROUND ĐA SẮC MÀU CHUYỂN ĐỘNG */
+            background: linear-gradient(-45deg, #003366, #F36F21, #23d5ab, #e73c7e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* Hiệu ứng chuyển động nền */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CÁC HÌNH TRÒN TRANG TRÍ BAY LƠ LỬNG (TẠO CHIỀU SÂU CHO KÍNH) */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+        }
+        .shape-1 {
+            width: 300px; height: 300px;
+            background: #F36F21;
+            top: -50px; left: -50px;
+        }
+        .shape-2 {
+            width: 400px; height: 400px;
+            background: #003366;
+            bottom: -100px; right: -50px;
+            animation-delay: 2s;
+        }
+        .shape-3 {
+            width: 200px; height: 200px;
+            background: #23d5ab;
+            top: 40%; right: 10%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- TẤM KÍNH TRUNG TÂM (GLASSMORPHISM) --- */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 1000px;
+            min-height: 600px;
+            
+            /* CÔNG THỨC TẠO HIỆU ỨNG KÍNH */
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); /* Làm mờ hậu cảnh */
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01); /* Phóng to nhẹ khi di chuột vào khung */
+        }
+
+        /* CỘT TRÁI: LOGO & TEXT */
+        .content-side {
+            flex: 1.2;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 280px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 900;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            color: var(--primary-orange);
+            display: block; /* Xuống dòng để nhấn mạnh */
+        }
+
+        p.desc {
+            font-size: 1.3rem;
+            color: #444;
+            font-weight: 500;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* NÚT BẤM GLOW (PHÁT SÁNG) */
+        .glow-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 25px 50px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(90deg, #F36F21, #ff9a44);
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(243, 111, 33, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .glow-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(243, 111, 33, 0.6);
+        }
+
+        .glow-button:hover::before {
+            left: 100%; /* Hiệu ứng vệt sáng chạy qua nút */
+        }
+
+        /* CỘT PHẢI: HÌNH MINH HỌA (TRONG SUỐT) */
+        .visual-side {
+            flex: 0.8;
+            background: rgba(255, 255, 255, 0.3); /* Lớp kính thứ 2 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Icon Chat bay nhảy */
+        .chat-icon {
+            font-size: 150px;
+            animation: bounce 3s infinite ease-in-out;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            body { height: auto; padding: 20px 0; overflow-y: auto; }
+            .glass-card { flex-direction: column-reverse; width: 95%; border-radius: 20px; }
+            .content-side { padding: 40px 30px; text-align: center; align-items: center; }
+            h1 { font-size: 2.2rem; }
+            .logo { width: 200px; margin-bottom: 20px; }
+            .glow-button { padding: 20px 30px; font-size: 1.2rem; width: 100%; }
+            .visual-side { padding: 40px; min-height: 250px; }
+            .shape { display: none; /* Ẩn bớt hiệu ứng nền trên mobile cho nhẹ */ }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+
+    <div class="glass-card">
+        
+        <div class="content-side">
+            <img src="https://raw.githubusercontent.com/duongcanhquan/image/main/logo%20vietmy.webp" alt="Logo Việt Mỹ" class="logo">
+            
+            <h1>
+                Tuyển Sinh <br>
+                <span>Năm 2025</span>
+            </h1>
+            
+            <p class="desc">
+                Giải đáp mọi thắc mắc về Ngành học, Học phí & Cơ hội việc làm cùng 
+                <b>Trợ lý ảo AI thông minh</b>.
+            </p>
+
+            <a href="https://notebooklm.google.com/notebook/542e05c9-cfde-4961-a083-7790b5f78505" target="_blank" class="glow-button">
+                CHÁT NGAY BÂY GIỜ 🚀
+            </a>
+        </div>
+
+        <div class="visual-side">
+            <div class
